@@ -1,0 +1,14 @@
+#// .prettierignore
+# Playwright specific
+node_moduldes/
+test-results/
+playwright-report
+summary.json
+# IDE - VS CODE
+.vscode
+
+# system files
+.DS_Store
+Thumbs.db
+{"mode":"full","isActive":false}
+*_spec.json

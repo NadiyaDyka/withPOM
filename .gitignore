@@ -1,0 +1,13 @@
+# Playwright
+node_modules/
+/test-results/
+test-results//.auth
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+logs/
+reports/
+.features-gen/
+.DS_Store
+.env
+playwright/.auth.jackage-lock.json

@@ -1,0 +1,58 @@
+{
+  "name": "TsPlaywrightPomBdd",
+  "version": "1.0.0",
+  "description": "An example of a Playwright TS POM BDD Project with GUI and API testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx bddgen && npx playwright test",
+    "tagged-test": "npx bddgen && npx playwright test --grep ",
+    "tagged-test:ui": "npx bddgen && npx playwright test --ui --grep ",
+    "tagged-test:chromium": "npx bddgen && npx playwright test --project chromium --grep ",
+    "tagged-test:msedge": "npx bddgen && npx playwright test --project msedge --grep ",
+    "tagged-test:webkit": "npx bddgen && npx playwright test --project webkit --grep ",
+    "tagged-test:ui:chromium": "npx bddgen && npx playwright test --ui --project chromium --grep ",
+    "tagged-test:ui:msedge": "npx bddgen && npx playwright test --ui --project msedge --grep ",
+    "tagged-test:ui:webkit": "npx bddgen && npx playwright test --ui --project webkit --grep ",
+    "not-tagged-test": "npx bddgen && npx playwright test --grep-invert ",
+    "report": "npx playwright show-report reports/cucumber",
+    "report:debug": "npx playwright show-report reports/playwright",
+    "bddgen": "bddgen",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:write": "npx prettier . --write",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "Playwright",
+    "typescript",
+    "BDD",
+    "POM",
+    "GUI",
+    "API"
+  ],
+  "author": "Stefan DeWolfe",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.4",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "cucumber-html-reporter": "^6.0.0",
+    "dotenv": "^16.6.1",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-playwright": "^2.2.0",
+    "husky": "^8.0.0",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.50.1",
+    "playwright-bdd": "^8.2.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.1"
+  },
+  "dependencies": {
+    "winston": "^3.17.0"
+  }
+}
