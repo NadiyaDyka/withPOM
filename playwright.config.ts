@@ -9,9 +9,8 @@ import {
   MONTHS,
 } from "./test-scenarios/test-data/constants";
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 //require("dotenv").config({ path: ".env" });
-dotenv.config({ path: path.resolve(__dirname, '../.config/.env') });
+dotenv.config({ path: path.resolve(__dirname, "../.config/.env") });
 const today = new Date();
 const dateInFileName = [
   today.getDate(),

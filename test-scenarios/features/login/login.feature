@@ -7,23 +7,23 @@ credentials and fail to login without them.
 @only
 Scenario Outline: Login in a way as standard user (check radio "others" )
     Given The user navigates to the login page
-    When The user enters "<username>" and "<password>"
+    When The user enters credentials "<usernameKey>" and "<passwordKey>"
     Then The DLINKHDD page is displayed
 Examples: 
-    | username | password   |
-    | CPSA     | CPPSWD     |
-    | CPUSER   | CPUSERPSWD | 
+    | usernameKey | passwordKey |
+    | CPSA        | CPPSWD      |
+    | CPUSER      | CPUSERPSWD  | 
     
 
 @standard(others)_user
 @only
 Scenario: Fail login for standard user (check radio "others" )
     Given The user navigates to the login page
-    When The user enters incorrect credentials 
+    When The user enters credentials "CPUSERINCORRECT" and "CPPSWDINCORRECT"
     Then The Login page is displayed
 
 @admin_user
-
+@only
 Scenario: Login as a System Administrator user
     Given The user navigates to the login page
     When The user enters "<password>" only

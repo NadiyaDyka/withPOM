@@ -25,14 +25,13 @@ export default class LoginPage extends BasePage {
     await this.page.goto(process.env.URL);
   }
 
-  async login(username:string | typeof LoginPage.RootAdmin, password: string) {
-    if (username!== LoginPage.RootAdmin) {
+  async login(username: string | typeof LoginPage.RootAdmin, password: string) {
+    if (username !== LoginPage.RootAdmin) {
       await expect(this.UserRadioBtnLocator).toBeVisible();
       await this.UserRadioBtnLocator.check();
 
       await expect(this.txtUsername).toBeVisible();
       await this.txtUsername.fill(username);
-      
     }
     await expect(this.txtPassword).toBeVisible();
     await this.txtPassword.fill(password);
@@ -50,4 +49,3 @@ export default class LoginPage extends BasePage {
     await expect(this.page.getByText("Please Select Your Account:")).toBeVisible();
   }
 }
-

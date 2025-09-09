@@ -62,6 +62,26 @@ export const test = base.extend<MyFixtures>({
   ],
 });
 
+export const cleanTest = base.extend<MyFixtures>({
+  utils: new Utils(),
+  sharedData: async ({}, use) => {
+    const data = {
+      /*Data goes here*/ generatedName: "",
+    };
+    use(data);
+  },
+  // GUI Pages
+  basePage: async ({ page }, use) => use(new BasePage(page)),
+  loginPage: async ({ page }, use) => use(new LoginPage(page)),
+  dlinkhddPage: async ({ page }, use) => use(new DlinkhddPage(page)),
+  // API endpoints
+  // baseApi: async ({ request }, use) => use(new BaseApi(request)),
+  loginApi: async ({ request }, use) => use(new LoginApi(request)),
+
+  // It will be useed the NEW storage state for every tests
+});
+
+
 export const { Given, When, Then, Before, BeforeAll, After, AfterAll } = createBdd(test);
 
 // This helps with looking for fonts
