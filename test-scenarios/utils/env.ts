@@ -9,5 +9,5 @@ export const CPPSWD = process.env.CPPSWD || "";
 export const CPUSERPSWD = process.env.CPUSERPSWD || "";
 export const CPUSER = process.env.CPUSER || "";
 export const CPSA = process.env.CPSA || "";
-export const CPUSERINCORRECT = process.env.CPUSERINCORRECT || '';
-export const CPPSWDINCORRECT = process.env.CPPSWDINCORRECT || '';
+export const CPUSERINCORRECT = process.env.CPUSERINCORRECT || "";
+export const CPPSWDINCORRECT = process.env.CPPSWDINCORRECT || "";

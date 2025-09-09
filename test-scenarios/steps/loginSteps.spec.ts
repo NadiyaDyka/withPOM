@@ -1,6 +1,6 @@
 import { Given, Then, When } from "../utils/fixtures";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { cleanTest as test } from "../utils/fixtures"; 
+import { cleanTest as test } from "../utils/fixtures";
 import { LOGGER } from "../utils/Logger";
 import LoginPage from "../pages/login-page";
 import * as ENV from "../utils/env";
@@ -10,7 +10,9 @@ Given("The user navigates to the login page", async ({ loginPage }) => {
   await loginPage.goTo();
 });
 
-When("The user enters credentials {string} and {string}", async ({ loginPage }, usernameKey: string, passwordKey: string) => {
+When(
+  "The user enters credentials {string} and {string}",
+  async ({ loginPage }, usernameKey: string, passwordKey: string) => {
     const username = (ENV as Record<string, string>)[usernameKey] || usernameKey;
     const password = (ENV as Record<string, string>)[passwordKey] || passwordKey;
 
@@ -24,27 +26,20 @@ When("The user enters credentials {string} and {string}", async ({ loginPage }, 
 //  const username = process.env[usernameKey] || usernameKey;
 //  const password = process.env[passwordKey] || passwordKey;
 //  LOGGER.info(`The user enters "${process.env[usernameKey]}" and "${process.env[passwordKey]}"`);
-  //LOGGER.info(`The user enters "${usernameKey}" and appropriate password → resolved as "${username}" / "password"`);
-//  await loginPage.login(username, password);
-//});
-
-//When("The user enters incorrect credentials {string} or {string}", async ({ loginPage }, usernameKey: string, passwordKey: string) => {
-//  const username = ENV.CPUSERINCORRECT;
-//  const password = ENV.CPPSWDINCORRECT;
-//  LOGGER.info(`The user enters "${process.env[usernameKey]}" and "${password}"`);
+//LOGGER.info(`The user enters "${usernameKey}" and appropriate password → resolved as "${username}" / "password"`);
 //  await loginPage.login(username, password);
 //});
 
 When("The user enters {string} only", async ({ loginPage }, passwordKey: string) => {
   const password = process.env[passwordKey] || passwordKey;
   LOGGER.info(`The user enters password "${passwordKey}" for sysadmin user`);
-  //LOGGER.info(`The user enters name for sysadmin user and appropriate password → resolved as "sysadmin" / "password"`);
+  //LOGGER.info(`The user doesn't enter user, but correct password for sysadmin only password"`);
   await loginPage.login(LoginPage.RootAdmin, password);
 });
 
-When("The user enters incorrect password only", async ({ loginPage }, usernameKey: string, passwordKey: string) => {
-  const password = "incorrect";
-  LOGGER.info(`The user enters "${usernameKey}" and "${passwordKey}"`);
+When("The user enters incorrect {string} password", async ({ loginPage }, usernameKey: string, passwordKey: string) => {
+  const password = process.env[passwordKey] || passwordKey;
+  LOGGER.info(`The user enters incorrect password "${passwordKey}" for sysadmin user`);
   await loginPage.login(LoginPage.RootAdmin, password);
 });
 

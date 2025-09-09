@@ -81,7 +81,6 @@ export const cleanTest = base.extend<MyFixtures>({
   // It will be useed the NEW storage state for every tests
 });
 
-
 export const { Given, When, Then, Before, BeforeAll, After, AfterAll } = createBdd(test);
 
 // This helps with looking for fonts
