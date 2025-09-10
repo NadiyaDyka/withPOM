@@ -28,18 +28,27 @@ Scenario: Login as a System Administrator user
     Given The user navigates to the login page
     When The user enters "CPPSWD" only
     Then The DLINKHDD page is displayed
-@only
+
+@admin_user_fail    
+
 Scenario: Fail to login as a System Administrator user
     Given The user navigates to the login page
-    When The user enters incorrect "CPPSWDINCORRECT" password
+    When The user enters incorrect SA password "CPPSWDINCORRECT"
     Then The Login page is displayed
-    Then The "<errorMessage>" error is displayed
+    Then The "IncorrectCredentials" error is displayed
 
-
-#Scenario: User see login form
-#    Given user navigate to DLink login page
-#    Then text "Please Select Your Account:", "System Administrator(admin)", "Others :", "Password:" will be visible
-#    And user can see the radio buttons for choosing user
+@only
+Scenario Outline: User see login form
+    Given The user navigates to the login page
+    Then text "<textKey>" on login page will be visible
+#     Then text "accountLabel" on login page will be visible
+#    Then The user can see the radio buttons for choosing user
 #    And user can see the username field
 #    And user can see the password field
 #    And user can see the button "Login"
+Examples:
+    | textKey       |
+    | accountLabel  |
+    | adminOption   |
+    | othersOption  |
+    | passwordLabel |

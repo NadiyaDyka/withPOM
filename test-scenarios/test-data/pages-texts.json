@@ -1,0 +1,13 @@
+{
+  "loginPage": {
+    "accountLabel": "Please Select Your Account:",
+    "adminOption": "System Administrator(admin)",
+    "othersOption": "Others :",
+    "passwordLabel": "Password:"
+  },
+  "dlinkhddPage": {
+    "header": "D-Link HDD Settings",
+    "saveButton": "Save Configuration",
+    "cancelButton": "Cancel"
+  }
+}

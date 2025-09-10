@@ -19,6 +19,7 @@ export const CHECK_VISIBILITY_TIMEOUT = 2 * 60 * 1000; // 2 minutes
 // ERROR MESSAGES
 export const LOCKOUT_ERROR_MESSAGE = "Epic sadface: Sorry, this user has been locked out.";
 export const BAD_USERNAME_PASSWORD_ERROR_MESSAGE = "You entered an incorrect login name or password.Please try again.";
+export const INCORRECT_CREDENTIALS_ERROR_MESSAGE = "You entered an incorrect login name or password.Please try again.";
 // export const BASE_URL = "https://www.saucedemo.com/";
 export const BASE_URL = "http://192.168.7.15/";
 

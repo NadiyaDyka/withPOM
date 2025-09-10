@@ -23,6 +23,7 @@ export default class BasePage {
     await this.waitForNetworkIdle();
   }
 
+  //can be used for debugging only
   async hardWait(milliseconds: number) {
     await this.page.waitForTimeout(milliseconds);
   }
