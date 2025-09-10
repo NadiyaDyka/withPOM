@@ -1,5 +1,5 @@
 {
-  "name": "TsPlaywrightPomBdd",
+  "name": "TsPlaywrightPomBdd_WITHPOM",
   "version": "1.0.0",
   "description": "An example of a Playwright TS POM BDD Project with GUI and API testing",
   "main": "index.js",

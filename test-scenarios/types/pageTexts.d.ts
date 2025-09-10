@@ -4,7 +4,5 @@ export interface PageTexts {
     adminOption: string;
     othersOption: string;
     passwordLabel: string;
-    
-    
   };
 }

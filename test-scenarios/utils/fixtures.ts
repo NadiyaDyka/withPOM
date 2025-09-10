@@ -9,6 +9,7 @@ import path from "path";
 import { Page } from "playwright";
 import Utils from "../utils/utils";
 export * from "@playwright/test";
+import { LOGGER } from "./Logger";
 
 type MyFixtures = {
   basePage: BasePage;
@@ -129,7 +130,7 @@ export async function elementsWithNotAcceptedText(page: Page, expectedFonts: str
           }
         }
       } catch (err) {
-        console.error("error on element: ", el, err);
+        LOGGER.error(`error on element: ${el}`, err);
       }
     }
   }, expectedFonts);

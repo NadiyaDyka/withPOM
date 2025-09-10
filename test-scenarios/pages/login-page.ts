@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 import BasePage from "./base-page";
 import { INCORRECT_CREDENTIALS_ERROR_MESSAGE } from "../test-data/constants";
-import { pageTexts, getLoginText } from "../utils/textParser";
+import { pageTexts } from "../utils/textParser";
 
 export default class LoginPage extends BasePage {
   readonly page: Page;

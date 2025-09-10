@@ -24,9 +24,9 @@ export default class BasePage {
   }
 
   //can be used for debugging only
-  async hardWait(milliseconds: number) {
-    await this.page.waitForTimeout(milliseconds);
-  }
+  //async hardWait(milliseconds: number) {
+  //  await this.page.waitForTimeout(milliseconds);
+  //}
 
   async verifyPageTitle() {
     // Add way to verify page, like title or something.
