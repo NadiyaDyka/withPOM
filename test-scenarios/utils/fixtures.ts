@@ -86,52 +86,55 @@ export const { Given, When, Then, Before, BeforeAll, After, AfterAll } = createB
 
 // This helps with looking for fonts
 export async function elementsWithNotAcceptedText(page: Page, expectedFonts: string[]) {
-  return await page.evaluate((expectedFonts) => {
-    function getElementXpath(el: Element): string {
-      if (el.id) {
-        return `//*[@id="${el.id}"]`;
-      }
-      const parts: string[] = [];
-      while (el && el.nodeType === Node.ELEMENT_NODE) {
-        let index = 1,
-          sibling: ChildNode | null = el.previousElementSibling;
-        while (sibling) {
-          if (sibling.nodeType === Node.ELEMENT_NODE && sibling.nodeName === el.nodeName) {
-            index++;
-          }
-          sibling = sibling.previousSibling;
+  return await page.evaluate(
+    ([expectedFonts, LOGGER]) => {
+      function getElementXpath(el: Element): string {
+        if (el.id) {
+          return `//*[@id="${el.id}"]`;
         }
-        parts.unshift(`${el.nodeName.toLowerCase()}[${index}]`);
-        el = el.parentElement;
-      }
-      return `/${parts.join("/")}`;
-    }
-    const elements = Array.from(document.querySelectorAll("*"));
-    const results: { text: string; fontFamily: string; xpath: string }[] = [];
-    for (const el of elements) {
-      try {
-        const text = (el as HTMLElement).innerText.trim();
-        const style = window.getComputedStyle(el);
-        const isVisible =
-          style.display !== "none" &&
-          style.visibility !== "hidden" &&
-          style.opacity !== "0" &&
-          (el as HTMLElement).offsetHeight > 0 &&
-          (el as HTMLElement).offsetWidth > 0 &&
-          el.getClientRects().length > 0;
-        const hasDirectText = Array.from(el.childNodes).some(
-          (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim
-        );
-        if (text && isVisible && hasDirectText) {
-          const fontFamilyRaw = style.fontFamily;
-          const Fonts = fontFamilyRaw.split(",").map((f) => f.replace(/["']/g, "").trim().toLowerCase());
-          if (Fonts[0] !== expectedFonts[0].toLowerCase()) {
-            results.push({ text: text, fontFamily: Fonts[0], xpath: getElementXpath(el) });
+        const parts: string[] = [];
+        while (el && el.nodeType === Node.ELEMENT_NODE) {
+          let index = 1,
+            sibling: ChildNode | null = el.previousElementSibling;
+          while (sibling) {
+            if (sibling.nodeType === Node.ELEMENT_NODE && sibling.nodeName === el.nodeName) {
+              index++;
+            }
+            sibling = sibling.previousSibling;
           }
+          parts.unshift(`${el.nodeName.toLowerCase()}[${index}]`);
+          el = el.parentElement;
         }
-      } catch (err) {
-        LOGGER.error(`error on element: ${el}`, err);
+        return `/${parts.join("/")}`;
       }
-    }
-  }, expectedFonts);
+      const elements = Array.from(document.querySelectorAll("*"));
+      const results: { text: string; fontFamily: string; xpath: string }[] = [];
+      for (const el of elements) {
+        try {
+          const text = (el as HTMLElement).innerText.trim();
+          const style = window.getComputedStyle(el);
+          const isVisible =
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            style.opacity !== "0" &&
+            (el as HTMLElement).offsetHeight > 0 &&
+            (el as HTMLElement).offsetWidth > 0 &&
+            el.getClientRects().length > 0;
+          const hasDirectText = Array.from(el.childNodes).some(
+            (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim
+          );
+          if (text && isVisible && hasDirectText) {
+            const fontFamilyRaw = style.fontFamily;
+            const Fonts = fontFamilyRaw.split(",").map((f) => f.replace(/["']/g, "").trim().toLowerCase());
+            if (Fonts[0] !== expectedFonts[0].toLowerCase()) {
+              results.push({ text: text, fontFamily: Fonts[0], xpath: getElementXpath(el) });
+            }
+          }
+        } catch (err) {
+          LOGGER.error(`error on element: ${el}`, err);
+        }
+      }
+    },
+    [expectedFonts, LOGGER]
+  );
 }
