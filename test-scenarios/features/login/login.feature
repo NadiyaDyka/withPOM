@@ -8,7 +8,7 @@ credentials and fail to login without them.
 Scenario Outline: Login in a way as standard user (check radio "others" )
     Given The user navigates to the login page
     When The user enters credentials "<usernameKey>" and "<passwordKey>"
-    Then The DLINKHDD page is displayed
+    Then The Home page is displayed
 Examples: 
     | usernameKey | passwordKey |
     | CPSA        | CPPSWD      |
@@ -27,7 +27,7 @@ Scenario: Fail login for standard user (check radio "others" )
 Scenario: Login as a System Administrator user
     Given The user navigates to the login page
     When The user enters "CPPSWD" only
-    Then The DLINKHDD page is displayed
+    Then The Home page is displayed
 
 @admin_user_fail    
 
@@ -37,7 +37,7 @@ Scenario: Fail to login as a System Administrator user
     Then The Login page is displayed
     Then The "IncorrectCredentials" error is displayed
 
-@only
+
 Scenario Outline: User see login form
     Given The user navigates to the login page
     Then text "<textKey>" on login page will be visible

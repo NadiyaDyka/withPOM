@@ -2,7 +2,7 @@ import { expect, type Page } from "@playwright/test";
 import BasePage from "./base-page";
 import { BASE_URL } from "../test-data/constants";
 
-export default class DlinkhddPage extends BasePage {
+export default class HomePage extends BasePage {
   constructor(page: Page) {
     super(page);
   }

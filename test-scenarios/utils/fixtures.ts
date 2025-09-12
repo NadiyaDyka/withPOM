@@ -1,7 +1,7 @@
 import { test as base, createBdd } from "playwright-bdd";
 import BasePage from "../pages/base-page";
 import LoginPage from "../pages/login-page";
-import DlinkhddPage from "../pages/dlinkhdd-page";
+import HomePage from "../pages/home-page";
 import BaseApi from "../api/pages/base-api";
 import LoginApi from "../api/pages/login-api";
 import fs from "fs";
@@ -14,7 +14,7 @@ import { LOGGER } from "./Logger";
 type MyFixtures = {
   basePage: BasePage;
   loginPage: LoginPage;
-  dlinkhddPage: DlinkhddPage;
+  homePage: HomePage;
   baseApi: BaseApi;
   loginApi: LoginApi;
   utils: Utils;
@@ -34,7 +34,7 @@ export const test = base.extend<MyFixtures>({
   // GUI Pages
   basePage: async ({ page }, use) => use(new BasePage(page)),
   loginPage: async ({ page }, use) => use(new LoginPage(page)),
-  dlinkhddPage: async ({ page }, use) => use(new DlinkhddPage(page)),
+  homePage: async ({ page }, use) => use(new HomePage(page)),
   // API endpoints
   // baseApi: async ({ request }, use) => use(new BaseApi(request)),
   loginApi: async ({ request }, use) => use(new LoginApi(request)),
@@ -74,7 +74,7 @@ export const cleanTest = base.extend<MyFixtures>({
   // GUI Pages
   basePage: async ({ page }, use) => use(new BasePage(page)),
   loginPage: async ({ page }, use) => use(new LoginPage(page)),
-  dlinkhddPage: async ({ page }, use) => use(new DlinkhddPage(page)),
+  homePage: async ({ page }, use) => use(new HomePage(page)),
   // API endpoints
   // baseApi: async ({ request }, use) => use(new BaseApi(request)),
   loginApi: async ({ request }, use) => use(new LoginApi(request)),
