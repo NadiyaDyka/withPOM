@@ -1,11 +1,12 @@
 import { Page } from "playwright";
+import { expect } from '@playwright/test';
 import { NETWORK_IDLE } from "../test-data/constants";
-export default class BasePage {
-  protected readonly page: Page;
+import fs from "fs";
+import path from "path";
 
-  constructor(page: Page) {
-    this.page = page;
-  }
+export default class BasePage {
+  constructor(protected page: Page) {}
+  
 
   async getPage() {
     return this.page;
@@ -21,6 +22,15 @@ export default class BasePage {
 
   async wait() {
     await this.waitForNetworkIdle();
+  }
+
+  /**
+   * Waits until the SPA view is fully loaded.
+   * Checks both URL pattern and a unique element in the DOM.
+   */
+  async waitForSpaPage(expectedUrlPattern: RegExp, uniqueLocator: string) {
+    await expect(this.page).toHaveURL(expectedUrlPattern);
+    await expect(this.page.locator(uniqueLocator)).toBeVisible();
   }
 
   //can be used for debugging only
