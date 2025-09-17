@@ -8,7 +8,6 @@ import LoginPage from "../pages/login-page";
 Given("The user is logged in as Admin", async ({ page, loginPage }) => {
   // Navigate to the login page
   await loginPage.goTo();
-
   // Enter only the password (skip username)
   const password = process.env.CPPSWD || "CPPSWD";
   await loginPage.login(LoginPage.RootAdmin, password);

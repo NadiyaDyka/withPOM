@@ -21,7 +21,9 @@ export default class ManagementPage extends BasePage {
     await managementMenu.click();
 
     // Click "Application Management" submenu
-    const appMenuItem = this.page.locator("#desc_app");
+    //const appMenuItem = this.page.locator("#desc_app");
+    const appMenuItem = this.page.locator("#icon_app");
+
     await appMenuItem.waitFor({ state: "visible", timeout: 1500 });
     await appMenuItem.click();
   }
@@ -109,13 +111,18 @@ export default class ManagementPage extends BasePage {
     let frame = await this.getFrame();
     let refreshButton = frame.getByText("Refresh All");
     // Wait up to 5s for the button to appear
-    let isVisible = await refreshButton.isVisible().catch(() => false);
-
-    console.log("isVisible", isVisible);
-    await this.page.waitForTimeout(2000);
-    // Wait up to 5s for the button to appear
-    isVisible = await refreshButton.isVisible().catch(() => false);
-    console.log("isVisible2", isVisible);
+    //let isVisible = await refreshButton.isVisible().catch(() => false);
+    let isVisible: boolean;
+    try {
+      // Wait up to 5s for the button to become visible
+      await refreshButton.waitFor({ state: "visible", timeout: 5000 });
+      isVisible = true;
+      console.log("✅ Refresh All button is visible", isVisible);
+    } catch {
+      isVisible = false;
+      console.log("❌ Refresh All button did not appear within 5s", isVisible);
+    }
+   
     if (!isVisible) {
       console.log("❌ Refresh All is not visible → check for progress to finish");
       const progressBar = frame.locator(this.progressBarSelector);
