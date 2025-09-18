@@ -161,13 +161,6 @@ export default class ManagementPage extends BasePage {
     await refreshButton.click();
   }
 
-  /** Step: Wait for the progress bar to appear */
-  async waitForProgressBarVisible(): Promise<void> {
-    const frame = await this.getFrame();
-    const progressBar = frame.locator(this.progressBarSelector);
-    await expect(progressBar).toBeVisible();
-  }
-
   /** Soft wait and click "Refreshed Successfully" popup if it appears */
 
   async handleSuccessPopup(retries = 10, intervalMs = 1000): Promise<void> {

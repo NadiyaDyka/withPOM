@@ -6,7 +6,7 @@ import { LOGGER } from "../utils/Logger";
 import LoginPage from "../pages/login-page";
 import { expect } from "@playwright/test";
 
-/*Given("The user is logged in as Admin", async ({ page, loginPage }) => {
+Given("The user is logged in as Admin", async ({ page, loginPage }) => {
   // Navigate to the login page
   await loginPage.goTo();
   // Enter only the password (skip username)
@@ -32,7 +32,13 @@ Given("The user opens the UPnP AV Server tab", async ({ page }) => {
   await managementPageAV.openUpnpTabMenu();
   LOGGER.info(`The user opens the UPnP AV Server tab`);
 });  
-*/
+
+Then("The user leaves to another tab", async ({ page }) => {
+  const managementPageAV = new ManagementPageAV(page);
+  expect(await managementPageAV.openAnotherTabMenu()).toBe(true);
+  LOGGER.info(`The user leaves to another tab`);
+});
+
 Then("The user see the progress bar", async ({ page }) => {
   const managementPageAV = new ManagementPageAV(page);
   expect(await managementPageAV.progressBarIsVisible()).toBe(true);
@@ -54,6 +60,18 @@ Then("The user gets finish popoup visible", async ({ page }) => {
 
 Then("The user close the popup", async ({ page }) => {
   const managementPageAV = new ManagementPageAV(page);
-  expect(await managementPageAV.popupRefreshedSuccessfullyIsVisible()).toBe(true);
+  expect(await managementPageAV.userClosePopupRefreshedSuccessfully()).toBe(true);
   LOGGER.info(`The user close the popup`);
+});
+
+Then("The user gets the Refresh All button is visible and enabled", async ({ page }) => {
+  const managementPageAV = new ManagementPageAV(page);
+  expect(await managementPageAV.getRefreshAllButtonVisibleAndEnabled()).toBe(true);
+  LOGGER.info(`The user gets the Refresh All button is visible and enabled`);
+});
+
+Then("The user clicks Refresh All button", async ({ page }) => {
+  const managementPageAV = new ManagementPageAV(page);
+  expect(await managementPageAV.getRefreshAllButtonVisibleAndEnabled()).toBe(true);
+  LOGGER.info(`The user clicks Refresh All button`);
 });

@@ -1,9 +1,9 @@
-import { Page, Frame, expect, Locator } from "@playwright/test";
+import { Page, Frame, expect } from "@playwright/test";
 import BasePage from "./base-page";
-import { XMLParser } from "fast-xml-parser";
 
 export default class ManagementPageAV extends BasePage {
   readonly upnpTabText = "UPnP AV Server";
+  readonly anotherTab = "FTP Server";
   readonly iframeName = "mainFrame";
   readonly refreshText = "Refresh All";
   readonly progressBarSelector = "#progressbar";
@@ -52,6 +52,19 @@ export default class ManagementPageAV extends BasePage {
     await tab.waitFor({ state: "visible", timeout: 1000 });
     await tab.click();
   }
+
+  async openAnotherTabMenu(): Promise<boolean> {
+    const tab = this.page.locator("#m_1", { hasText: this.anotherTab });
+    try {
+      await tab.waitFor({ state: "visible", timeout: 1000 });
+      await tab.click();
+      return true;
+    } catch (error) {
+      console.error("❌ Failed to open another tab:", error);
+      return false;
+    }
+  }
+
   /** ✅ Check if the progress bar is visible and return true or false */
   async progressBarIsVisible(): Promise<boolean> {
     // Get the frame from the iframe
@@ -109,5 +122,111 @@ export default class ManagementPageAV extends BasePage {
   /** ✅ Checks if the "Refreshed Successfully" popup is visible */
   async popupRefreshedSuccessfullyIsVisible(): Promise<boolean> {
     return await this.popupIsVisible(this.successPopupText);
+  }
+
+  /** User closes the popup*/
+
+  async userClosePopupRefreshedSuccessfully(): Promise<boolean> {
+    const okButton = this.page.locator("#popup_ok");
+    let okVisible: boolean;
+
+    try {
+      await okButton.waitFor({ state: "visible", timeout: 2000 });
+      okVisible = true;
+      console.log("OK is visible");
+    } catch {
+      okVisible = false;
+      console.log("OK is NOT visible");
+    }
+
+    const isEnabled = await okButton.isEnabled().catch(() => false);
+
+    if (okVisible && isEnabled) {
+      try {
+        await okButton.click();
+        console.log("OK button clicked successfully");
+        return true;
+      } catch (error) {
+        console.error("Failed to click OK button:", error);
+        return false;
+      }
+    } else {
+      console.warn("OK button is not available");
+      return false;
+    }
+  }
+
+  async ensureRefreshAllReady(): Promise<boolean> {
+    let frame = await this.getFrame();
+    let refreshButton = frame.getByText("Refresh All");
+    let isVisible: boolean;
+    try {
+      // Wait up to 5s for the button to become visible
+      await refreshButton.waitFor({ state: "visible", timeout: 5000 });
+      isVisible = true;
+      console.log("✅ Refresh All button is visible", isVisible);
+    } catch {
+      isVisible = false;
+      console.log("❌ Refresh All button did not appear within 5s", isVisible);
+    }
+    const isEnabled = await refreshButton.isEnabled().catch(() => false);
+
+    if (isVisible && isEnabled) {
+      console.log("✅ Refresh All is ready");
+      return true;
+    } else {
+      console.log("❌ Refresh All not ready again: somthing wrong.");
+      return false;
+    }
+  }
+
+  /** ✅ Check if Refresh All button is visible and enabled */
+  async getRefreshAllButtonVisibleAndEnabled(): Promise<boolean> {
+    if (await this.progressBarIsVisible()) {
+      const finished = await this.waitForProgressFinished();
+      if (!finished) {
+        console.warn("⚠️ Progress got stuck.");
+        return false;
+      }
+      console.log("✅ Progress completed successfully.");
+
+      const popupVisible = await this.popupRefreshedSuccessfullyIsVisible();
+      if (!popupVisible) {
+        console.log("❌ Popup Refreshed Successfully doesn't appear.");
+        return false;
+      }
+      console.log("✅ Popup Refreshed Successfully is visible.");
+
+      const popupClosed = await this.userClosePopupRefreshedSuccessfully();
+      if (!popupClosed) {
+        console.log("❌ User wasn't able to close popup.");
+        return false;
+      }
+      console.log("✅ User closes popup Refreshed Successfully.");
+    }
+
+    const refreshReady = await this.ensureRefreshAllReady();
+    if (refreshReady) {
+      console.log("✅ User gets the Refresh All button.");
+      return true;
+    } else {
+      console.log("❌ User doesn't get the Refresh All button.");
+      return false;
+    }
+  }
+
+  /** ✅ Step: Click "Refresh All" inside the iframe and return success status */
+  async clickRefreshAll(): Promise<boolean> {
+    try {
+      const frame = await this.getFrame(); // use existing helper
+      const refreshButton = frame.locator("#refresh_button", { hasText: "Refresh All" });
+
+      await refreshButton.click();
+      console.log("✅ Clicked 'Refresh All' successfully.");
+      return true;
+    } catch (error) {
+      console.error("❌ Failed to click 'Refresh All':", error);
+      return false;
+    }
   }
 }

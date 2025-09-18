@@ -5,7 +5,7 @@ import { cleanTest as test } from "../utils/fixtures";
 import { LOGGER } from "../utils/Logger";
 import LoginPage from "../pages/login-page";
 
-Given("The user is logged in as Admin", async ({ page, loginPage }) => {
+/**Given("The user is logged in as Admin", async ({ page, loginPage }) => {
   // Navigate to the login page
   await loginPage.goTo();
   // Enter only the password (skip username)
@@ -25,3 +25,4 @@ When("The user clicks Refresh All button and waits for completion", async ({ pag
   const managementPage = new ManagementPage(page);
   await managementPage.ensureRefreshAllReady1();
 });
+*/

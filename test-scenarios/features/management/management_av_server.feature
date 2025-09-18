@@ -22,10 +22,10 @@ Feature: Management
     Scenario: Admin can see the completion of the previews refreshing after leaving the process midway and returning before it finished
         When The user clicks Refresh All button
         And The user see the progress bar
-        And the user leaves to another tab
-        And the user returns to the UPnP AV Server tab
-        Then The user see progress bar
-        And the user waits for completion
+        And The user leaves to another tab
+        And The user opens the UPnP AV Server tab
+        Then The user see the progress bar
+        And The user waits for completion
         And The user gets finish popoup visible
         And The user close the popup
         And The user gets the Refresh All button is visible and enabled
@@ -39,7 +39,7 @@ Feature: Management
         And The user opens Management menu
         And The user opens Application Management menu
         And The user opens the UPnP AV Server tab
-        Then The user see progress bar
+        Then The user see the progress bar
         And the user waits for completion
         And The user gets finish popoup visible
         And The user close the popup
