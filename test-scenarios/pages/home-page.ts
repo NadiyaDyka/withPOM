@@ -19,13 +19,7 @@ export default class HomePage extends BasePage {
   async verifyPageTitle() {
     // чекаємо появи тексту "My Folder" на сторінці
     await expect(this.page.getByText("My Folder")).toBeVisible();
-    //await expect(this.page.locator('span._text', { hasText: "My Folder" })).toBeVisible();
-    //await expect(this.page.locator('span[lang="_home"]')).toHaveText("My Folder");
-    //await expect(this.page.locator('#my_management >> text=Management')).toBeVisible();
     //await this.wait();
-    // перевіряємо <title>
-    //const expectedTitle = "DLINKHDD";
-    //const actualTitle = await this.page.title();
-    //expect(actualTitle).toBe(expectedTitle);
+    
   }
 }
