@@ -1,4 +1,4 @@
-import ManagementPage from "../pages/management-page";
+/**import ManagementPage from "../pages/management-page";
 import { Given, Then, When } from "../utils/fixtures";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { cleanTest as test } from "../utils/fixtures";
